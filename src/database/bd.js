@@ -1,14 +1,16 @@
 const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize(
-    process.env.BD_BASE,
-    process.env.BD_USER,
-    process.env.BD_PASS,
+    process.env.DATABASE_URL,
     {
-        host: process.env.BD_HOST,
-        port: 5432,
-        dialect: "postgres"
-    }
-);
+
+        dialect: "postgres",
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false
+            },
+        },
+    });
 
 module.exports = { sequelize };
